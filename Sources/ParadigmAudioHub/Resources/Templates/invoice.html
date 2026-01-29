@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invoice {{invoice_number}}</title>
+  <link rel="stylesheet" href="invoice.css" />
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- Header -->
+    <header class="header avoid-break">
+      <div class="brand">
+        <!-- If you bundle a logo, set src to a local resource path (baseURL must allow it) -->
+        <img class="logo" src="{{logo_src}}" alt="Paradigm Audio" onerror="this.style.display='none'"/>
+        <div class="brand-text">
+          <div class="brand-name">Paradigm Audio</div>
+          <div class="brand-meta">
+            <span>{{business_email}}</span>
+            <span class="dot">•</span>
+            <span>{{business_website}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc">
+        <div class="doc-title">Invoice</div>
+        <div class="doc-kv">
+          <div class="kv"><span class="k">Invoice</span><span class="v">{{invoice_number}}</span></div>
+          <div class="kv"><span class="k">Status</span><span class="v pill pill-{{status_slug}}">{{status}}</span></div>
+          <div class="kv"><span class="k">Issue date</span><span class="v">{{issue_date}}</span></div>
+          <div class="kv"><span class="k">Due date</span><span class="v">{{due_date}}</span></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Parties -->
+    <section class="parties avoid-break">
+      <div class="card">
+        <div class="card-title">Bill to</div>
+        <div class="party">
+          <div class="party-name">{{client_name}}</div>
+          <div class="party-line">{{client_email}}</div>
+
+          <!-- Optional billing address block: TemplateEngine can inject '' to hide -->
+          {{client_billing_address_block}}
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Project</div>
+        <div class="party">
+          <div class="party-name">{{project_name}}</div>
+          <div class="party-line subtle">{{project_ref}}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Line items -->
+    <section class="items">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="col-desc">Description</th>
+            <th class="col-qty">Qty</th>
+            <th class="col-rate">Rate</th>
+            <th class="col-total">Total</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {{line_items_rows}}
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Totals -->
+    <section class="summary avoid-break">
+      <div class="summary-grid">
+        <div class="notes card">
+          <div class="card-title">Notes</div>
+          <div class="subtle">
+            {{notes_block}}
+          </div>
+        </div>
+
+        <div class="totals card">
+          <div class="row"><span>Subtotal</span><span>{{subtotal}}</span></div>
+
+          <!-- VAT intentionally omitted until enabled -->
+          <!-- {{vat_row}} -->
+
+          <div class="row total"><span>Total (GBP)</span><span>{{total}}</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Payment placeholder -->
+    <section class="payment avoid-break">
+      <div class="card">
+        <div class="card-title">Payment details</div>
+        <div class="subtle">
+          {{bank_details_block}}
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer (fixed for repeating on pages) -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <span>{{footer_left}}</span>
+        <span class="sep">|</span>
+        <span>{{footer_right}}</span>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>
